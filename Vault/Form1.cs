@@ -61,13 +61,12 @@ namespace Vault
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            string ipval;
-            ipval = ipBox.Text;
+            string ipval = ipBox.Text;
             string port = portBox.Text;
             MessageBox.Show("Changes saved.");
             string path = @"config.txt";
 
-            var dict = new Dictionary<string, string>
+            var dict = new Dictionary<string, string> //save inputs to dictionary in a config file.
             {
                 ["IPv4 "] = ipval,
                 ["Port "] = port
@@ -108,8 +107,6 @@ namespace Vault
         private void selectFiles_Click(object sender, EventArgs e)
         {
 
-            var filepath = string.Empty;
-            var filecontent = string.Empty;
 
 
 
@@ -119,6 +116,7 @@ namespace Vault
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
+                    runBox.Enabled = true; //enable only when at least one file is selected to be sent
                     foreach (String file in ofd.FileNames)
                     {
                         paths.Enqueue(file);
@@ -132,23 +130,17 @@ namespace Vault
 
         private void run_Click(object sender, EventArgs e)
         {
-            string path = @"config.txt";
-            
-            // FileStream ds = new FileStream(path, FileMode.Open);
 
-            TcpClient client = new TcpClient(ipBox.Text, 4999);
+
+            TcpClient client = new TcpClient(ipBox.Text, Int32.Parse(portBox.Text)); //connect to server on inputted ip and port
             System.Diagnostics.Debug.WriteLine("connected.");
-
-            // var input = new BinaryWriter(client.GetStream());
-
-            // var output = new BinaryReader(client.GetStream());
 
 
             while (paths.Count > 0)
             {
                 var temp = paths.Dequeue();
-                var convertedstring = Convert.ToString(temp);
-                SendFile(convertedstring, client);
+                var convertedstring = Convert.ToString(temp); //have to convert queue values into a string so it can be passed through
+                SendFile(convertedstring, client); 
                 System.Diagnostics.Debug.WriteLine("File: " + convertedstring + " has been sent.");
 
 
@@ -159,10 +151,7 @@ namespace Vault
         private static void SendFile(string filePath, TcpClient client)
         {
 
-            using FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-
-
-            long fileSize = fs.Length; //get file size
+            using FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read); //point file stream to the file path we want to send.
 
 
             byte[] buffer = new byte[4 * 1024]; //send 4kb at a time
