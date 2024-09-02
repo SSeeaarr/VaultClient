@@ -32,7 +32,7 @@
             ipBox = new TextBox();
             label2 = new Label();
             saveButton = new Button();
-            run = new Button();
+            runBox = new Button();
             selectFiles = new Button();
             portBox = new TextBox();
             label1 = new Label();
@@ -76,15 +76,16 @@
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += saveButton_Click;
             // 
-            // run
+            // runBox
             // 
-            run.Location = new Point(332, 415);
-            run.Name = "run";
-            run.Size = new Size(100, 23);
-            run.TabIndex = 4;
-            run.Text = "Run";
-            run.UseVisualStyleBackColor = true;
-            run.Click += run_Click;
+            runBox.Enabled = false;
+            runBox.Location = new Point(332, 415);
+            runBox.Name = "runBox";
+            runBox.Size = new Size(100, 23);
+            runBox.TabIndex = 4;
+            runBox.Text = "Run";
+            runBox.UseVisualStyleBackColor = true;
+            runBox.Click += run_Click;
             // 
             // selectFiles
             // 
@@ -121,7 +122,7 @@
             Controls.Add(label1);
             Controls.Add(portBox);
             Controls.Add(selectFiles);
-            Controls.Add(run);
+            Controls.Add(runBox);
             Controls.Add(saveButton);
             Controls.Add(label2);
             Controls.Add(ipBox);
@@ -138,7 +139,7 @@
         private TextBox ipBox;
         private Label label2;
         private Button saveButton;
-        private Button run;
+        private Button runBox;
         private Button selectFiles;
         private TextBox portBox;
         private Label label1;
