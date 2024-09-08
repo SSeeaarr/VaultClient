@@ -1,6 +1,6 @@
 ﻿namespace Vault
 {
-    partial class Form1
+    partial class ClientWindow
     {
         /// <summary>
         ///  Required designer variable.
