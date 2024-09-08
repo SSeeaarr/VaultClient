@@ -12,45 +12,48 @@ using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
 
 namespace Vault
 {
 
-    public partial class Form1 : Form
+    public partial class ClientWindow : Form
     {
         private object filePath;
         private object openFileDialog;
         Queue paths = new Queue();
 
-        public Form1()
+        public ClientWindow()
         {
             InitializeComponent();
             string path = @"config.txt";
 
-            if (File.Exists(path))
+            if (File.Exists(path)) //check if config file exists, and if it does, loads information into the boxes.
             {
                 using (StreamReader sr = new StreamReader(path))
                 {
                     string line = sr.ReadLine();
-                    string toRemove = "IPv4 ";
+                    string toRemove = "IPv4:";
                     string result = string.Empty;
                     int i = line.IndexOf(toRemove);
                     if (i >= 0)
                     {
                         result = line.Remove(i, toRemove.Length);
-                        ipBox.Text = result;
+                        string removespaces = result.Trim();
+                        ipBox.Text = removespaces;
                     }
 
                     string portline = sr.ReadLine();
-                    string remove = "Port ";
+                    string remove = "Port:";
                     result = string.Empty;
                     i = portline.IndexOf(remove);
                     if (i >= 0)
                     {
                         result = portline.Remove(i, remove.Length);
-                        portBox.Text = result;
+                        string removespaces = result.Trim();
+                        portBox.Text = removespaces;
                     }
 
 
@@ -68,8 +71,8 @@ namespace Vault
 
             var dict = new Dictionary<string, string> //save inputs to dictionary in a config file.
             {
-                ["IPv4 "] = ipval,
-                ["Port "] = port
+                ["IPv4: "] = ipval,
+                ["Port: "] = port
             };
 
             if (File.Exists(path))
@@ -128,24 +131,40 @@ namespace Vault
             }
         }
 
-        private void run_Click(object sender, EventArgs e)
+        private async void run_Click(object sender, EventArgs e)
         {
 
 
             TcpClient client = new TcpClient(ipBox.Text, Int32.Parse(portBox.Text)); //connect to server on inputted ip and port
             System.Diagnostics.Debug.WriteLine("connected.");
+            ipBox.Enabled = false;
+            portBox.Enabled = false;
 
 
+            using NetworkStream networkStream = client.GetStream();
+            using var reader = new StreamReader(networkStream, Encoding.UTF8);
+
+            var originalcount = paths.Count - 1;
             while (paths.Count > 0)
             {
+                
                 var temp = paths.Dequeue();
                 var convertedstring = Convert.ToString(temp); //have to convert queue values into a string so it can be passed through
-                SendFile(convertedstring, client); 
-                System.Diagnostics.Debug.WriteLine("File: " + convertedstring + " has been sent.");
 
+
+
+                if (paths.Count < originalcount)
+                {
+                    client = new TcpClient(ipBox.Text, Int32.Parse(portBox.Text));
+
+                }
+                SendFile(convertedstring, client);
 
             }
-            
+
+            ipBox.Enabled = true;
+            portBox.Enabled = true;
+
         }
 
         private static void SendFile(string filePath, TcpClient client)
