@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VaultClient.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <Label
+                Text="Welcome to"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            
+            <Label
+                Text="Vault Client"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"/>
+            
+
+            <Entry
+                x:Name="ipBox"
+                Placeholder="0.0.0.0"
+                MaximumWidthRequest="100"/>
+            
+            
+            <Entry
+                x:Name="portBox"
+                Placeholder="0000"
+                MaximumWidthRequest="100"/>
+
+
+            <Button
+                x:Name="saveBtn"
+                Text="Save Changes" 
+                SemanticProperties.Hint="Saves inputted IP and Port"
+                Clicked="saveButton_Click"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="selectFiles"
+                Text="Select Files"
+                Clicked="selectFiles_Click"
+                HorizontalOptions="Center"/>
+
+            <Button
+                x:Name="runBtn"
+                Text="Send to Server"
+                Clicked="run_Click"
+                HorizontalOptions="Center"
+                Margin="0, 100, 0, 0"/>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
