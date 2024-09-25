@@ -136,7 +136,7 @@ namespace VaultClient
 
             using FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read); //point file stream to the file path we want to send.
 
-            byte[] buffer = new byte[4 * 1024]; //send 4kb at a time
+            byte[] buffer = new byte[4 * 1024];
             int bytesRead;
 
             using NetworkStream nws = client.GetStream();
