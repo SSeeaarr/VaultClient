@@ -1,0 +1,1 @@
+Vault is a Client-Server file sharing application written in c#. This was mainly created for a home project to store family photos onto a server. As of right now, the server half of the application is unfinished, and is written in java, however this will most likely change.
