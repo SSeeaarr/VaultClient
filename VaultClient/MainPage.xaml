@@ -49,6 +49,7 @@
                 x:Name="runBtn"
                 Text="Send to Server"
                 Clicked="run_Click"
+                IsEnabled="False"
                 HorizontalOptions="Center"
                 Margin="0, 100, 0, 0"/>
 

@@ -77,7 +77,7 @@ namespace VaultClient
 
                 if (FileNames != null)
                 {
-                    //runBox.Enabled = true; //enable only when at least one file is selected to be sent
+                    runBtn.IsEnabled = true; //enable only when at least one file is selected to be sent
                     foreach (var file in FileNames)
                     {
                         string currentfile = file.FullPath;
