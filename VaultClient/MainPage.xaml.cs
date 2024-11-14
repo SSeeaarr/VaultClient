@@ -2,6 +2,7 @@
 using Microsoft.Maui.Storage;
 using System.Collections;
 using System.Net.Sockets;
+using System.Text;
 
 namespace VaultClient
 {
@@ -131,10 +132,32 @@ namespace VaultClient
             }
         }
 
+        public static string truncateStringAfterLastChar(string input, char pivot)
+        {
+            return input.Split(pivot).Last();
+        }
+
         private static void SendFile(String filePath, TcpClient client)
         {
 
             using FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read); //point file stream to the file path we want to send.
+
+
+            using NetworkStream namestream = client.GetStream();
+            string pathname = truncateStringAfterLastChar(filePath, '\\');
+            System.Diagnostics.Debug.WriteLine("file name:" + pathname);
+
+            byte[] pathbytes = Encoding.UTF8.GetBytes(pathname);
+
+            // Send the length of the filename (4 bytes for an int)
+            byte[] lengthBytes = BitConverter.GetBytes(pathbytes.Length);
+            namestream.Write(lengthBytes, 0, lengthBytes.Length);
+
+            // Send the actual filename
+            namestream.Write(pathbytes, 0, pathbytes.Length);
+
+
+
 
             byte[] buffer = new byte[4 * 1024]; //send 4kb at a time
             int bytesRead;
@@ -148,7 +171,7 @@ namespace VaultClient
                 writer.Flush();
             }
 
-            System.Diagnostics.Debug.WriteLine("File: " + filePath + "was sent successfully.");
+            System.Diagnostics.Debug.WriteLine("File: " + filePath + " was sent successfully.");
         }
     }
 
