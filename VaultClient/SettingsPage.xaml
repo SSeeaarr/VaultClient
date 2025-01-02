@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VaultClient.SettingsPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <VerticalStackLayout.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightSkyBlue" Offset="0" />
+                    <GradientStop Color="Purple" Offset="1" />
+                </LinearGradientBrush>
+            </VerticalStackLayout.Background>
+
+            <Label
+                Text="Settings"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"/>
+
+            <StackLayout Orientation="Horizontal" Spacing="5">
+                <CheckBox
+    
+                x:Name="Checkbox"
+                IsChecked="False"/>
+
+                <Label Text="ohio mode" VerticalOptions="Center"/>
+            </StackLayout>
+            
+
+
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

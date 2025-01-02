@@ -3,10 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VaultClient.MainPage">
 
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="LightSkyBlue" Offset="0" />
+            <GradientStop Color="Purple" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
+            
+
+            <VerticalStackLayout.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightSkyBlue" Offset="0" />
+                    <GradientStop Color="Purple" Offset="1" />
+                </LinearGradientBrush>
+            </VerticalStackLayout.Background>
+
 
             <Label
                 Text="Welcome to"
@@ -37,13 +54,15 @@
                 Text="Save Changes" 
                 SemanticProperties.Hint="Saves inputted IP and Port"
                 Clicked="saveButton_Click"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                BackgroundColor="#F8EAF8"/>
 
             <Button
                 x:Name="selectFiles"
                 Text="Select Files"
                 Clicked="selectFiles_Click"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="Center"
+                BackgroundColor="#F8EAF8"/>
 
             <Button
                 x:Name="runBtn"
@@ -51,7 +70,9 @@
                 Clicked="run_Click"
                 IsEnabled="False"
                 HorizontalOptions="Center"
-                Margin="0, 100, 0, 0"/>
+                Margin="0, 100, 0, 0"
+                TextColor="Black"
+                BackgroundColor="#F8EAF8"/>
 
 
         </VerticalStackLayout>

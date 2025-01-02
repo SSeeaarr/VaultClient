@@ -10,10 +10,16 @@ namespace VaultClient
     {
         Queue paths = new Queue();
 
+
+
+
         public MainPage()
         {
             InitializeComponent();
             string path = Path.Combine(FileSystem.AppDataDirectory, "config.txt");
+
+            
+            
 
             if (File.Exists(path)) //check if config file exists, and if it does, loads information into the boxes.
             {
@@ -159,7 +165,7 @@ namespace VaultClient
 
 
 
-            byte[] buffer = new byte[4 * 1024]; //send 4kb at a time
+            byte[] buffer = new byte[4 * 1024];
             int bytesRead;
 
             using NetworkStream nws = client.GetStream();
@@ -173,6 +179,16 @@ namespace VaultClient
 
             System.Diagnostics.Debug.WriteLine("File: " + filePath + " was sent successfully.");
         }
+
+
+
+
+        static void OnProcessExit(object sender, EventArgs e)
+    {
+        Console.WriteLine("I'm out of here");
     }
+
+
+}
 
 }
