@@ -1,4 +1,5 @@
 ﻿
+
 using Microsoft.Maui.Storage;
 using System.Collections;
 using System.Net.Sockets;
@@ -150,6 +151,15 @@ namespace VaultClient
 
 
             using NetworkStream namestream = client.GetStream();
+
+
+            // File Size in bytes
+            long filesize = new FileInfo(filePath).Length; //since its a long its going to be 8 bytes. We read this length on the server.
+            byte[] size = BitConverter.GetBytes(filesize);
+            namestream.Write(size, 0, size.Length);
+
+
+
             string pathname = truncateStringAfterLastChar(filePath, '\\');
             System.Diagnostics.Debug.WriteLine("file name:" + pathname);
 
@@ -161,8 +171,6 @@ namespace VaultClient
 
             // Send the actual filename
             namestream.Write(pathbytes, 0, pathbytes.Length);
-
-
 
 
             byte[] buffer = new byte[4 * 1024];
