@@ -22,16 +22,27 @@
 
             <StackLayout Orientation="Horizontal" Spacing="5">
                 <CheckBox
-    
                 x:Name="Checkbox"
                 IsChecked="False"/>
-
                 <Label Text="ohio mode" VerticalOptions="Center"/>
             </StackLayout>
-            
+
+            <StackLayout Orientation="Horizontal" Spacing="5">
+                <CheckBox
+                x:Name="Checkbox2"
+                IsChecked="False"/>
+                <Label Text="ohio mode 2" VerticalOptions="Center"/>
+            </StackLayout>
 
 
 
+            <Button
+            x:Name="saveBtn"
+            Text="Save Changes" 
+            SemanticProperties.Hint="Saves inputted IP and Port"
+            Clicked="saveButton_Click"
+            HorizontalOptions="Center"
+            BackgroundColor="#F8EAF8"/>
 
 
         </VerticalStackLayout>
